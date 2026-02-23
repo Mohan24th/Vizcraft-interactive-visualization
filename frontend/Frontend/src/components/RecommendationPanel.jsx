@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import API_BASE from "../api/api";
 import "./RecommendationPanel.css";
 
-function RecommendationPanel({ dataset, setImageUrl }) {
+function RecommendationPanel({ dataset, setImageUrl, setXCol, setYCol, setChartType }) {
 
   const [selectedCols, setSelectedCols] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -54,6 +54,11 @@ function RecommendationPanel({ dataset, setImageUrl }) {
   };
 
   const generateFromRecommendation = async (rec) => {
+
+    // 🔥 1. Auto-fill ChartBuilder controls
+    setChartType(rec.chart);
+    setXCol(rec.x || "");
+    setYCol(rec.y || "");
 
     try {
       const res = await fetch(`${API_BASE}/plot/generate`, {

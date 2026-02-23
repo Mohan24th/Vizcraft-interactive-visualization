@@ -10,13 +10,24 @@ function DatasetInfo({ dataset }) {
       <p><b>Rows:</b> {dataset.rows}</p>
 
       <h3>Columns</h3>
-      <ul>
+
+      <div className="column-list">
         {dataset.columns.map((col, i) => (
-          <li key={i}>
-            {col.name} — <b>{col.type}</b>
-          </li>
+          <div key={i} className="column-item">
+            <span>{col.name}</span>
+
+            <span
+              className={
+                col.type === "numeric"
+                  ? "badge numeric"
+                  : "badge categorical"
+              }
+            >
+              {col.type.toUpperCase()}
+            </span>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

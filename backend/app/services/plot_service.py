@@ -57,6 +57,8 @@ def generate_plot(config: dict):
     marker = style.get("marker", "o")
     size = style.get("size", 60)
     linewidth = style.get("linewidth", 2)
+    alpha = style.get("alpha", 1)
+    bins = style.get("bins", 20)
 
     # ---------------- PAIRPLOT (special handling) ----------------
     if chart == "pairplot":
@@ -74,16 +76,39 @@ def generate_plot(config: dict):
 
     # ---------------- CHART SELECTOR ----------------
     if chart == "scatter":
-        sns.scatterplot(data=df, x=x, y=y, hue=hue, s=size, color=color, marker=marker)
+        sns.scatterplot(
+            data=df,
+            x=x,
+            y=y,
+            hue=hue,
+            s=size,
+            color=color,
+            marker=marker,
+            alpha=alpha
+        )
 
     elif chart == "line":
-        sns.lineplot(data=df, x=x, y=y, hue=hue, linewidth=linewidth)
+        sns.lineplot(
+            data=df,
+            x=x,
+            y=y,
+            hue=hue,
+            linewidth=linewidth,
+            color=color
+        )
+
+    elif chart == "histogram":
+        sns.histplot(
+            data=df,
+            x=x,
+            bins=bins,
+            color=color,
+            alpha=alpha
+        )
 
     elif chart == "bar":
         sns.barplot(data=df, x=x, y=y, hue=hue)
 
-    elif chart == "histogram":
-        sns.histplot(data=df, x=x, bins=20, color=color)
 
     elif chart == "boxplot":
         sns.boxplot(data=df, x=x, y=y)

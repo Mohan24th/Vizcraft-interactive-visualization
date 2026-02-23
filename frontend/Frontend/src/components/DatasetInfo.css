@@ -4,3 +4,31 @@
   border-radius: 10px;
   margin-bottom: 20px;
 }
+
+.column-list {
+  margin-top: 10px;
+}
+
+.column-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.numeric {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.categorical {
+  background-color: #fef3c7;
+  color: #92400e;
+}
