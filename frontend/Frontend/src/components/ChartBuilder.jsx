@@ -109,14 +109,14 @@ function ChartBuilder({
 
       {/* Column Selectors */}
       <select value={xCol} onChange={(e) => setXCol(e.target.value)}>
-        <option value="">Select X</option>
+        <option value="">Feature 1</option>
         {dataset.columns.map((c, i) => (
           <option key={i} value={c.name}>{c.name}</option>
         ))}
       </select>
 
       <select value={yCol} onChange={(e) => setYCol(e.target.value)}>
-        <option value="">Select Y</option>
+        <option value="">Feature 2</option>
         {dataset.columns.map((c, i) => (
           <option key={i} value={c.name}>{c.name}</option>
         ))}

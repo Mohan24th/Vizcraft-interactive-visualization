@@ -8,21 +8,47 @@ function UploadDataset({ setDataset, setImageUrl }) {
   const [loading, setLoading] = useState(false);
 
   const uploadDataset = async () => {
-    if (!file) return alert("Select a file");
+
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+
+    const allowedTypes = [
+      "text/csv",
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      alert("Invalid file format. Please upload a CSV or Excel file.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("file", file);
 
     setLoading(true);
 
-    const res = await fetch(`${API_BASE}/data/upload`, {
-      method: "POST",
-      body: formData
-    });
+    try {
+      const res = await fetch(`${API_BASE}/data/upload`, {
+        method: "POST",
+        body: formData
+      });
 
-    const data = await res.json();
-    setDataset(data);
-    setImageUrl(null);
+      const data = await res.json();
+
+      if (res.ok) {
+        setDataset(data);
+        setImageUrl(null);
+      } else {
+        alert(data.detail || "Upload failed.");
+      }
+
+    } catch (err) {
+      alert("Upload failed.");
+    }
+
     setLoading(false);
   };
 

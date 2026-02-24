@@ -7,30 +7,69 @@
 
 .columns {
   display: flex;
+  display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 15px;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.columns label {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.columns input[type="checkbox"] {
+  display: none;
+}
+
+.columns label:has(input:checked) {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .recommendations {
-  margin-top: 20px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .recommendation-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f3f4f6;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-bottom: 10px;
+  transition: all 0.2s ease;
+}
+
+.recommendation-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.recommendation-item span {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.recommendation-item b {
+  color: var(--accent-color);
+  margin-right: 8px;
 }
 
 .recommendation-item button {
-  background: #16a34a;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 6px 12px;
+  font-size: 12px;
 }

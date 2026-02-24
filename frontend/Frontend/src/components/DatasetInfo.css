@@ -1,34 +1,35 @@
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
 .column-list {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
 }
 
 .column-item {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
-  border-bottom: 1px solid #eee;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
 .badge {
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .numeric {
-  background-color: #dbeafe;
-  color: #1e40af;
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
 }
 
 .categorical {
-  background-color: #fef3c7;
-  color: #92400e;
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
 }

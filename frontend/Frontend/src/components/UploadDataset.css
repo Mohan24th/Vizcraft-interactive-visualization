@@ -3,7 +3,37 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--glass-border);
+  border-radius: 8px;
+  margin: 16px 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  background: var(--glass-border);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 4px 10px;
+  margin-right: 12px;
+  cursor: pointer;
 }
 
 button {
