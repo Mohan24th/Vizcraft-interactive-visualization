@@ -5,9 +5,15 @@ from app.routes import upload, visualize
 
 app = FastAPI(title="VizCraft API")
 
+origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://vizcraft-visualization.vercel.app"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
