@@ -1,2 +1,2 @@
-const API_BASE = "https://your-backend-name.onrender.com";
+const API_BASE = "https://vizcraft-interactive-visualization.onrender.com/";
 export default API_BASE;
