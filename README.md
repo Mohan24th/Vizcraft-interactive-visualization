@@ -11,7 +11,7 @@ The platform emphasizes:
 - Visualization compatibility validation
 - Deterministic plot rendering
 - Clean separation of frontend and backend responsibilities
-
+        
 ##  Features
 
 ###  Data Upload
@@ -42,12 +42,6 @@ The platform emphasizes:
 - Server-side image generation
 - PNG streaming response
 - Downloadable visualizations
-
-###  Deployment Ready
-- Docker support
-- Docker Compose orchestration
-- Decoupled frontend/backend architecture
-
 
 
 ##  Architecture
@@ -90,32 +84,6 @@ PNG Image Response
 - React (Vite)
 - CSS
 
-### Deployment
-- Docker
-- Docker Compose
-
-
-
-##  Project Structure
-
-```
-vizcraft/
-│
-├── backend/
-│   ├── main.py
-│   ├── routes/
-│   ├── services/
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── src/
-│   ├── components/
-│   └── package.json
-│
-└── docker-compose.yml
-```
-
-
 ##  Local Development
 
 ### 1️ Backend Setup
@@ -144,13 +112,6 @@ npm run dev
 Frontend runs at:
 ```
 http://localhost:5173
-```
-
-
-##  Run with Docker
-
-```bash
-docker-compose up --build
 ```
 
 This command builds and starts both frontend and backend containers.
