@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import upload, visualize
+from app.routes import upload, visualize, insights
 
 app = FastAPI(title="VizCraft API")
 
@@ -15,6 +15,7 @@ app.add_middleware(
 
 app.include_router(upload.router, prefix="/data")
 app.include_router(visualize.router, prefix="/plot")
+app.include_router(insights.router, prefix="/insights")
 
 app.mount("/plot/image", StaticFiles(directory="outputs"), name="images")
 
