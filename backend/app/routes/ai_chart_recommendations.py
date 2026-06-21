@@ -1,7 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.services.profiling_service import profile_dataset
+from app.services.profiling_service import (
+    profile_dataset
+)
+
 from app.services.ai_chart_recommendation_service import (
     generate_chart_recommendations
 )
@@ -9,29 +12,26 @@ from app.services.ai_chart_recommendation_service import (
 router = APIRouter()
 
 
-class ChartRecommendationRequest(BaseModel):
+class DatasetRequest(BaseModel):
     dataset_id: str
 
 
 @router.post("/recommend")
-def recommend_charts(req: ChartRecommendationRequest):
+def recommend(request: DatasetRequest):
 
     try:
 
-        profile = profile_dataset(req.dataset_id)
-
-        recommendations = generate_chart_recommendations(
-            profile
+        profile = profile_dataset(
+            request.dataset_id
         )
 
-        return {
-            "success": True,
-            "recommendations": recommendations
-        }
+        return generate_chart_recommendations(
+            profile
+        )
 
     except Exception as e:
 
         raise HTTPException(
-            status_code=400,
+            status_code=500,
             detail=str(e)
         )

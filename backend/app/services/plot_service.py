@@ -7,27 +7,13 @@ import seaborn as sns
 
 from app.services.schema_service import detect_schema
 from app.services.validation_service import validate_plot
+from app.services.dataset_service import load_dataset
 
 STORAGE_PATH = "storage"
 OUTPUT_PATH = "outputs"
 
 # ensure output folder exists
 os.makedirs(OUTPUT_PATH, exist_ok=True)
-
-
-# ---------------- LOAD DATASET ----------------
-def load_dataset(dataset_id: str):
-
-    for file in os.listdir(STORAGE_PATH):
-        if file.startswith(dataset_id):
-            path = os.path.join(STORAGE_PATH, file)
-
-            if file.endswith(".csv"):
-                return pd.read_csv(path)
-            else:
-                return pd.read_excel(path)
-
-    raise Exception("Dataset not found")
 
 
 # ---------------- GENERATE PLOT ----------------
