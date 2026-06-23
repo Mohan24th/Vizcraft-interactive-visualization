@@ -1,0 +1,101 @@
+.chart-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 20px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+}
+
+.chart-card:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.chart-card:hover::before {
+  opacity: 1;
+}
+
+.chart-card--selected {
+  border-color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.08);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+}
+
+.chart-card--selected::before {
+  opacity: 1;
+}
+
+.chart-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-emerald);
+}
+
+.chart-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.chart-card__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.chart-card__desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  position: relative;
+}
+
+.chart-card__check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.15);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+@media (max-width: 480px) {
+  .chart-gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

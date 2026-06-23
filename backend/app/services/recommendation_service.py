@@ -1,5 +1,6 @@
 from app.services.schema_service import detect_schema
 from app.services.plot_service import load_dataset
+from app.services.dataset_service import load_dataset
 
 
 def recommend_charts(dataset_id: str, selected_columns: list):
