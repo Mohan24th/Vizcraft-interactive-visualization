@@ -1,13 +1,9 @@
-:root {
-  --bg-color: #030303;
-  --panel-bg: rgba(18, 18, 18, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --accent-color: #10b981;
-  --accent-glow: rgba(16, 185, 129, 0.2);
-  --card-bg: rgba(24, 24, 27, 0.6);
-  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+@import "./variables.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
@@ -16,50 +12,155 @@ body {
   color: var(--text-primary);
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 30px;
+#root {
+  min-height: 100vh;
 }
 
-.card {
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 24px;
-  margin-top: 20px;
-  border-radius: 16px;
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-button {
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 10px 20px;
-  background: var(--accent-color);
-  color: #000;
+  font-family: inherit;
   font-weight: 600;
+  font-size: 0.9375rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 15px var(--accent-glow);
+  transition: all var(--transition-smooth);
 }
 
-button:hover {
-  background: #34d399;
-  transform: translateY(-2px);
-  box-shadow: 0 0 25px var(--accent-glow);
+.btn--primary {
+  background: linear-gradient(135deg, var(--accent-emerald), #059669);
+  color: #022c22;
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
-button:disabled {
+.btn--primary:hover:not(:disabled) {
+  box-shadow: 0 0 30px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+.btn--primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
+}
+
+.btn-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Form elements */
+select,
+input[type="text"],
+input[type="number"],
+input[type="color"],
+.search-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+select {
+  cursor: pointer;
+}
+
+select option {
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+select:focus,
+input:focus {
+  border-color: var(--accent-emerald);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Shared meta badge (used across components) */
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+}
+
+.meta-badge strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-emerald);
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  margin: 0 0 24px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
 }

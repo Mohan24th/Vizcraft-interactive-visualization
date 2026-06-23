@@ -1,0 +1,34 @@
+.download-actions__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn--secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  box-shadow: none;
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.btn--secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
