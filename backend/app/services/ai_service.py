@@ -9,37 +9,21 @@ genai.configure(
     api_key=os.getenv("GEMINI_API_KEY")
 )
 
-try:
-    model = genai.GenerativeModel(
-        "gemini-2.5-flash"
-    )
-
-except Exception as e:
-
-    raise Exception(
-        f"Gemini initialization failed: {str(e)}"
-    )
+model = genai.GenerativeModel(
+    "gemini-2.5-flash"
+)
 
 
 def ask_gemini(prompt: str):
 
     try:
 
-        response = model.generate_content(
-            prompt
-        )
+        response = model.generate_content(prompt)
 
         result = response.text.strip()
 
-        result = result.replace(
-            "```json",
-            ""
-        )
-
-        result = result.replace(
-            "```",
-            ""
-        )
+        result = result.replace("```json", "")
+        result = result.replace("```", "")
 
         return result.strip()
 

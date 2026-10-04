@@ -1,25 +1,29 @@
 import pandas as pd
 
-def read_dataset(filepath: str):
-    if filepath.endswith(".csv"):
-        df = pd.read_csv(filepath)
-    else:
-        df = pd.read_excel(filepath)
-    return df
+
+def read_dataset(filepath):
+    filepath = str(filepath)
+
+    if filepath.lower().endswith(".csv"):
+        return pd.read_csv(filepath)
+
+    if filepath.lower().endswith((".xlsx", ".xls")):
+        return pd.read_excel(filepath)
+
+    raise ValueError("Unsupported dataset format")
 
 
 def detect_schema(df: pd.DataFrame):
-
     schema = {}
 
-    for col in df.columns:
-        dtype = str(df[col].dtype)
-
-        if "int" in dtype or "float" in dtype:
-            col_type = "numeric"
+    for column in df.columns:
+        if pd.api.types.is_numeric_dtype(df[column]):
+            column_type = "numeric"
+        elif pd.api.types.is_datetime64_any_dtype(df[column]):
+            column_type = "datetime"
         else:
-            col_type = "categorical"
+            column_type = "categorical"
 
-        schema[col] = col_type
+        schema[column] = column_type
 
     return schema

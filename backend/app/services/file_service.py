@@ -1,21 +1,18 @@
-import os
 import uuid
 from fastapi import UploadFile
 
-STORAGE_PATH = "storage"
+from app.core.storage import DATASETS_DIR
+
 
 def save_file(file: UploadFile):
-    # generate unique id
     dataset_id = str(uuid.uuid4())
 
-    # extension
-    ext = file.filename.split(".")[-1]
-    filename = f"{dataset_id}.{ext}"
+    extension = file.filename.rsplit(".", 1)[-1].lower()
+    filename = f"{dataset_id}.{extension}"
 
-    filepath = os.path.join(STORAGE_PATH, filename)
+    filepath = DATASETS_DIR / filename
 
-    # save file
-    with open(filepath, "wb") as buffer:
+    with filepath.open("wb") as buffer:
         buffer.write(file.file.read())
 
     return dataset_id, filepath

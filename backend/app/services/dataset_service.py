@@ -1,32 +1,28 @@
-import os
 import pandas as pd
 
-STORAGE_PATH = "storage"
+from app.core.storage import get_dataset_path
 
 
 def load_dataset(dataset_id: str):
-    """
-    Load dataset using dataset_id.
-    """
+    path = get_dataset_path(dataset_id)
+
+    if path is None:
+        raise FileNotFoundError(
+            f"Dataset '{dataset_id}' not found"
+        )
 
     try:
-        for file in os.listdir(STORAGE_PATH):
+        if path.suffix.lower() == ".csv":
+            return pd.read_csv(path)
 
-            if file.startswith(dataset_id):
+        if path.suffix.lower() in {".xlsx", ".xls"}:
+            return pd.read_excel(path)
 
-                path = os.path.join(STORAGE_PATH, file)
-
-                if file.endswith(".csv"):
-                    return pd.read_csv(path)
-
-                elif file.endswith((".xlsx", ".xls")):
-                    return pd.read_excel(path)
-
-        raise FileNotFoundError(
-            f"Dataset {dataset_id} not found"
+        raise ValueError(
+            f"Unsupported dataset format: {path.suffix}"
         )
 
     except Exception as e:
         raise Exception(
             f"Dataset loading failed: {str(e)}"
-        )
+        ) from e
