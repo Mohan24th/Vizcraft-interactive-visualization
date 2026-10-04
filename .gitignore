@@ -1,20 +1,22 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+.venv/
+venv/
+
+# Environment
 .env
-storage/
-outputs/
+.env.*
 
-# Node
-node_modules/
-dist/
+# Backend generated files
+backend/app/storage/datasets/*
+backend/app/storage/outputs/*
+!backend/app/storage/datasets/.gitkeep
+!backend/app/storage/outputs/.gitkeep
 
-# Vite
+# Frontend
 frontend/node_modules/
+frontend/dist/
 
 # OS
 .DS_Store
-Thumbs.db
-
-# IDE
-.vscode/

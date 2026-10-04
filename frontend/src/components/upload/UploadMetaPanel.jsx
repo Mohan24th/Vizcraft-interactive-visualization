@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import GlassCard from "./common/GlassCard";
+import GlassCard from "../common/GlassCard";
 import "./UploadDataset.css";
 
 function UploadMetaPanel({ dataset, uploadMeta }) {

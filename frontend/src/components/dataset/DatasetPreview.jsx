@@ -1,4 +1,4 @@
-import GlassCard from "./common/GlassCard";
+import GlassCard from "../common/GlassCard";
 import "./DatasetPreview.css";
 
 function DatasetPreview({ previewRows, columns }) {

@@ -1,4 +1,4 @@
-import StatCard from "./common/StatCard";
+import StatCard from "../common/StatCard";
 import "./DatasetSummary.css";
 
 function DatasetSummary({ dataset, analysis, loading }) {

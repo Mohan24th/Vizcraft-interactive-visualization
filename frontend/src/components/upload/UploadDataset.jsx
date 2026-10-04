@@ -1,8 +1,8 @@
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Papa from "papaparse";
-import API_BASE from "../api/api";
-import GlassCard from "./common/GlassCard";
+import API_BASE from "../../api/api";
+import GlassCard from "../common/GlassCard";
 import "./UploadDataset.css";
 
 function UploadDataset({ setDataset, setImageUrl, setUploadMeta, setPreviewRows }) {

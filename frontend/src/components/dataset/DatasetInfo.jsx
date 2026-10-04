@@ -1,4 +1,4 @@
-import GlassCard from "./common/GlassCard";
+import GlassCard from "../common/GlassCard";
 import "./DatasetInfo.css";
 
 function DatasetInfo({ dataset }) {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import API_BASE from "../api/api";
-import GlassCard from "./common/GlassCard";
+import API_BASE from "../../api/api";
+import GlassCard from "../common/GlassCard";
 import "./RecommendationPanel.css";
 
 function RecommendationPanel({

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import API_BASE from "../api/api";
-import GlassCard from "./common/GlassCard";
-import { CHART_LABELS } from "../constants/chartTypes.jsx";
+import API_BASE from "../../api/api";
+import GlassCard from "../common/GlassCard";
+import { CHART_LABELS } from "../../constants/chartTypes.jsx";
 import "./ChartBuilder.css";
 
 function ChartBuilder({

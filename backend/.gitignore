@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+.DS_Store
+
+app/storage/datasets/*
+app/storage/outputs/*
+
+!app/storage/datasets/.gitkeep
+!app/storage/outputs/.gitkeep

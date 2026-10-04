@@ -1,5 +1,5 @@
-import GlassCard from "./common/GlassCard";
-import { CHART_LABELS } from "../constants/chartTypes.jsx";
+import GlassCard from "../common/GlassCard";
+import { CHART_LABELS } from "../../constants/chartTypes.jsx";
 import "./ChartInfoPanel.css";
 
 function ChartInfoPanel({ chartMeta }) {

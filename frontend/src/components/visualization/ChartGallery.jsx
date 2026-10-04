@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CHART_TYPES } from "../constants/chartTypes.jsx";
+import { CHART_TYPES } from "../../constants/chartTypes.jsx";
 import "./ChartGallery.css";
 
 function ChartGallery({ chartType, setChartType, setYCol }) {

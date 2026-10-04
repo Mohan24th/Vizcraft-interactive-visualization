@@ -1,17 +1,16 @@
-import { useState, useRef, useCallback, useEffect } from "react";
-import { motion } from "framer-motion";
-import HeroSection from "../components/layout/HeroSection";
-import UploadDataset from "../components/UploadDataset";
-import UploadMetaPanel from "../components/UploadMetaPanel";
-import DatasetSummary from "../components/DatasetSummary";
-import DatasetPreview from "../components/DatasetPreview";
-import DatasetInfo from "../components/DatasetInfo";
-import ChartGallery from "../components/ChartGallery";
-import ChartBuilder from "../components/ChartBuilder";
-import PlotViewer from "../components/PlotViewer";
-import ChartInfoPanel from "../components/ChartInfoPanel";
-import DownloadActions from "../components/DownloadActions";
-import RecommendationPanel from "../components/RecommendationPanel";
+import UploadDataset from "../components/upload/UploadDataset";
+import UploadMetaPanel from "../components/upload/UploadMetaPanel";
+
+import DatasetSummary from "../components/dataset/DatasetSummary";
+import DatasetPreview from "../components/dataset/DatasetPreview";
+import DatasetInfo from "../components/dataset/DatasetInfo";
+
+import ChartGallery from "../components/visualization/ChartGallery";
+import ChartBuilder from "../components/visualization/ChartBuilder";
+import PlotViewer from "../components/visualization/PlotViewer";
+import ChartInfoPanel from "../components/visualization/ChartInfoPanel";
+import DownloadActions from "../components/visualization/DownloadActions";
+import RecommendationPanel from "../components/visualization/RecommendationPanel";
 import { useDatasetAnalysis } from "../hooks/useDatasetAnalysis";
 import { scrollToElement } from "../utils/scrollToElement";
 import "./Dashboard.css";
