@@ -1,39 +1,83 @@
-import GlassCard from "../common/GlassCard";
+import { useState } from "react";
 import "./DatasetPreview.css";
 
 function DatasetPreview({ previewRows, columns }) {
-  if (!previewRows?.length) return null;
+  const [showPreview, setShowPreview] = useState(false);
 
-  const headers = columns?.map((c) => c.name) ?? Object.keys(previewRows[0] ?? {});
+  if (!previewRows || !columns) {
+    return null;
+  }
 
   return (
     <section className="dataset-preview">
-      <h2 className="section-heading">Dataset Preview</h2>
-      <GlassCard className="dataset-preview__card" hover={false}>
-        <p className="glass-card__subtitle">
-          First {previewRows.length} rows of your uploaded dataset
-        </p>
-        <div className="dataset-preview__scroll">
-          <table className="data-table">
+      <div className="dataset-preview__header">
+        <div>
+          <span className="section-label">Dataset</span>
+
+          <h2 className="section-heading">
+            Dataset Preview
+          </h2>
+
+          <p className="dataset-preview__subtitle">
+            View the first 10 rows of your uploaded dataset.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          className="btn btn--secondary"
+          onClick={() => setShowPreview((prev) => !prev)}
+        >
+          {showPreview
+            ? "Hide Dataset Preview"
+            : "View Dataset Preview"}
+        </button>
+      </div>
+
+      {showPreview && (
+        <div className="dataset-preview__table-wrapper">
+          <table className="dataset-preview__table">
             <thead>
               <tr>
-                {headers.map((col) => (
-                  <th key={col}>{col}</th>
-                ))}
+                {columns.map((column, index) => {
+                  const columnName =
+                    typeof column === "string"
+                      ? column
+                      : column.name;
+
+                  return (
+                    <th key={index}>
+                      {columnName}
+                    </th>
+                  );
+                })}
               </tr>
             </thead>
+
             <tbody>
-              {previewRows.map((row, i) => (
-                <tr key={i}>
-                  {headers.map((col) => (
-                    <td key={col}>{row[col] ?? "—"}</td>
-                  ))}
+              {previewRows.slice(0, 10).map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                  {columns.map((column, columnIndex) => {
+                    const columnName =
+                      typeof column === "string"
+                        ? column
+                        : column.name;
+
+                    return (
+                      <td key={columnIndex}>
+                        {row[columnName] !== null &&
+                        row[columnName] !== undefined
+                          ? String(row[columnName])
+                          : "—"}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </GlassCard>
+      )}
     </section>
   );
 }

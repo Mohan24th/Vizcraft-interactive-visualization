@@ -1,78 +1,139 @@
 import pandas as pd
 
 from app.services.dataset_service import load_dataset
+from app.services.schema_service import detect_schema
 
 
 def profile_dataset(dataset_id: str):
 
+    # --------------------------------------------------
+    # 1. LOAD DATASET
+    # --------------------------------------------------
+
     df = load_dataset(dataset_id)
 
-    numeric_columns = df.select_dtypes(
-        include="number"
-    ).columns.tolist()
+    # --------------------------------------------------
+    # 2. USE THE SAME SCHEMA DETECTION AS PLOTTING
+    # --------------------------------------------------
 
-    categorical_columns = df.select_dtypes(
-        exclude="number"
-    ).columns.tolist()
+    schema = detect_schema(df)
 
-    datetime_columns = []
+    numeric_columns = [
+        column
+        for column, column_type in schema.items()
+        if column_type == "numeric"
+    ]
 
-    for column in df.columns:
-        try:
-            parsed = pd.to_datetime(
-                df[column],
-                errors="coerce"
-            )
+    categorical_columns = [
+        column
+        for column, column_type in schema.items()
+        if column_type == "categorical"
+    ]
 
-            if len(df) > 0:
-                success_rate = parsed.notna().mean()
+    datetime_columns = [
+        column
+        for column, column_type in schema.items()
+        if column_type == "datetime"
+    ]
 
-                if success_rate >= 0.8:
-                    datetime_columns.append(column)
+    # --------------------------------------------------
+    # 3. NORMALIZE NUMERIC COLUMNS
+    # --------------------------------------------------
 
-        except Exception:
-            continue
+    for column in numeric_columns:
+
+        df[column] = pd.to_numeric(
+            df[column],
+            errors="coerce"
+        )
+
+    # --------------------------------------------------
+    # 4. MISSING VALUES
+    # --------------------------------------------------
 
     missing_values = {
         column: int(count)
         for column, count in df.isnull().sum().items()
     }
 
-    duplicate_rows = int(df.duplicated().sum())
+    total_missing = int(
+        df.isnull().sum().sum()
+    )
+
+    # --------------------------------------------------
+    # 5. DUPLICATES
+    # --------------------------------------------------
+
+    duplicate_rows = int(
+        df.duplicated().sum()
+    )
+
+    # --------------------------------------------------
+    # 6. NUMERIC SUMMARY
+    # --------------------------------------------------
 
     numeric_summary = {}
 
     for column in numeric_columns:
 
-        series = df[column]
+        series = df[column].dropna()
+
+        if series.empty:
+
+            numeric_summary[column] = {
+                "mean": None,
+                "median": None,
+                "min": None,
+                "max": None,
+                "std": None,
+            }
+
+            continue
 
         numeric_summary[column] = {
-            "mean": round(float(series.mean()), 2)
-            if not series.empty else None,
+            "mean": round(
+                float(series.mean()),
+                2
+            ),
 
-            "median": round(float(series.median()), 2)
-            if not series.empty else None,
+            "median": round(
+                float(series.median()),
+                2
+            ),
 
-            "min": round(float(series.min()), 2)
-            if not series.empty else None,
+            "min": round(
+                float(series.min()),
+                2
+            ),
 
-            "max": round(float(series.max()), 2)
-            if not series.empty else None,
+            "max": round(
+                float(series.max()),
+                2
+            ),
 
-            "std": round(float(series.std()), 2)
-            if not series.empty else None,
+            "std": round(
+                float(series.std()),
+                2
+            ),
         }
+
+    # --------------------------------------------------
+    # 7. CATEGORICAL SUMMARY
+    # --------------------------------------------------
 
     categorical_summary = {}
 
     for column in categorical_columns:
 
-        mode = df[column].mode()
+        series = df[column]
+
+        mode = series.mode()
 
         categorical_summary[column] = {
             "unique_values": int(
-                df[column].nunique()
+                series.nunique()
             ),
+
             "top_value": (
                 str(mode.iloc[0])
                 if not mode.empty
@@ -80,11 +141,17 @@ def profile_dataset(dataset_id: str):
             ),
         }
 
+    # --------------------------------------------------
+    # 8. CORRELATIONS
+    # --------------------------------------------------
+
     correlations = []
 
     if len(numeric_columns) >= 2:
 
-        correlation_matrix = df[numeric_columns].corr()
+        correlation_matrix = df[
+            numeric_columns
+        ].corr()
 
         for i in range(len(numeric_columns)):
 
@@ -110,9 +177,9 @@ def profile_dataset(dataset_id: str):
             reverse=True,
         )
 
-    total_missing = int(
-        df.isnull().sum().sum()
-    )
+    # --------------------------------------------------
+    # 9. DATA QUALITY SCORE
+    # --------------------------------------------------
 
     missing_penalty = min(
         total_missing * 0.1,
@@ -133,24 +200,45 @@ def profile_dataset(dataset_id: str):
         ),
     )
 
+    # --------------------------------------------------
+    # 10. DATASET TYPE
+    # --------------------------------------------------
+
     dataset_type = "unknown"
 
     for column in categorical_columns:
 
         if df[column].nunique() <= 10:
+
             dataset_type = "classification"
             break
 
+    # --------------------------------------------------
+    # 11. RETURN PROFILE
+    # --------------------------------------------------
+
     return {
-        "rows": int(len(df)),
-        "columns_count": int(len(df.columns)),
-        "columns": list(df.columns),
+
+        "rows": int(
+            len(df)
+        ),
+
+        "columns_count": int(
+            len(df.columns)
+        ),
+
+        "columns": list(
+            df.columns
+        ),
 
         "numeric_columns": numeric_columns,
+
         "categorical_columns": categorical_columns,
+
         "datetime_columns": datetime_columns,
 
         "missing_values": missing_values,
+
         "total_missing_values": total_missing,
 
         "duplicate_rows": duplicate_rows,
@@ -162,6 +250,7 @@ def profile_dataset(dataset_id: str):
         ),
 
         "numeric_summary": numeric_summary,
+
         "categorical_summary": categorical_summary,
 
         "dataset_type": dataset_type,

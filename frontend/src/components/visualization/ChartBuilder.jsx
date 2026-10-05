@@ -103,8 +103,13 @@ function ChartBuilder({
 
   return (
     <section className="chart-config">
-      <span className="section-label">Step 3</span>
-      <h2 className="section-heading">Chart Configuration</h2>
+     <h3 className="section-heading">
+      Configure your chart
+    </h3>
+
+    <p className="glass-card__subtitle">
+      Choose the columns and adjust the visual style before generating.
+    </p>
 
       <GlassCard hover={false}>
         <div className="config-grid">

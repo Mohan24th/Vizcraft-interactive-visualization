@@ -18,7 +18,6 @@ import DownloadActions from "../components/visualization/DownloadActions";
 import RecommendationPanel from "../components/visualization/RecommendationPanel";
 
 import AIInsights from "../components/insights/AIInsights";
-
 import NLVisualization from "../components/ai/NLVisualization";
 
 import { useDatasetAnalysis } from "../hooks/useDatasetAnalysis";
@@ -44,17 +43,17 @@ const sectionVariants = {
 };
 
 function Dashboard() {
-  /* =========================
-     DATASET STATE
-  ========================= */
+  // =========================
+  // DATASET STATE
+  // =========================
 
   const [dataset, setDataset] = useState(null);
   const [uploadMeta, setUploadMeta] = useState(null);
   const [previewRows, setPreviewRows] = useState(null);
 
-  /* =========================
-     VISUALIZATION STATE
-  ========================= */
+  // =========================
+  // VISUALIZATION STATE
+  // =========================
 
   const [imageUrl, setImageUrl] = useState(null);
   const [chartMeta, setChartMeta] = useState(null);
@@ -64,25 +63,25 @@ function Dashboard() {
   const [yCol, setYCol] = useState("");
   const [chartType, setChartType] = useState("histogram");
 
-  /* =========================
-     SCROLL REFERENCES
-  ========================= */
+  // =========================
+  // SCROLL STATE
+  // =========================
 
   const vizCanvasRef = useRef(null);
   const pendingScrollRef = useRef(false);
 
-  /* =========================
-     DATASET ANALYSIS
-  ========================= */
+  // =========================
+  // DATASET ANALYSIS
+  // =========================
 
   const {
     analysis,
     loading: analysisLoading,
   } = useDatasetAnalysis(dataset?.dataset_id);
 
-  /* =========================
-     SCROLL TO VISUALIZATION
-  ========================= */
+  // =========================
+  // SCROLL TO VISUALIZATION
+  // =========================
 
   const scrollToVisualization = useCallback(() => {
     pendingScrollRef.current = true;
@@ -105,9 +104,7 @@ function Dashboard() {
 
     scroll();
 
-    const timeout1 = window.setTimeout(() => {
-      scroll();
-    }, 250);
+    const timeout1 = window.setTimeout(scroll, 250);
 
     const timeout2 = window.setTimeout(() => {
       scroll();
@@ -120,28 +117,20 @@ function Dashboard() {
     };
   }, [plotLoading, imageUrl]);
 
-  /* =========================
-     DATASET UPLOAD HANDLER
-  ========================= */
+  // =========================
+  // DATASET UPLOAD
+  // =========================
 
   const handleSetDataset = (data) => {
     setDataset(data);
 
-    // Reset visualization state
+    // Reset visualization state for new dataset
     setImageUrl(null);
     setChartMeta(null);
     setXCol("");
     setYCol("");
     setChartType("histogram");
-
-    // Reset preview/meta if required
-    setPreviewRows((previous) => previous);
-    setUploadMeta((previous) => previous);
   };
-
-  /* =========================
-     RENDER
-  ========================= */
 
   return (
     <motion.div
@@ -159,54 +148,74 @@ function Dashboard() {
         <HeroSection />
 
         {/* =========================
-            UPLOAD + VISUALIZATION
+            01 — DATASET
         ========================= */}
 
-        <div className="dashboard__workspace">
+        <section className="product-section product-section--dataset">
 
-          {/* LEFT SIDEBAR */}
-          <motion.aside
-            className="dashboard__sidebar"
-            custom={0}
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-          >
-            <UploadDataset
-              setDataset={handleSetDataset}
-              setImageUrl={setImageUrl}
-              setUploadMeta={setUploadMeta}
-              setPreviewRows={setPreviewRows}
-            />
+          <div className="product-section__header">
+            <div>
+              <span className="product-section__eyebrow">
+                01 · DATASET
+              </span>
 
-            <UploadMetaPanel
-              dataset={dataset}
-              uploadMeta={uploadMeta}
-            />
-          </motion.aside>
+              <h2 className="product-section__title">
+                Start with your data
+              </h2>
 
-          {/* VISUALIZATION CANVAS */}
-          <motion.div
-            ref={vizCanvasRef}
-            id="visualization-area"
-            className="dashboard__viz"
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-            aria-live="polite"
-          >
-            <PlotViewer
-              imageUrl={imageUrl}
-              loading={plotLoading}
-              chartMeta={chartMeta}
-            />
-          </motion.div>
+              <p className="product-section__description">
+                Upload a CSV or Excel file and VizCraft will
+                automatically understand its structure.
+              </p>
+            </div>
+          </div>
 
-        </div>
+          <div className="dashboard__workspace">
+
+            {/* UPLOAD */}
+            <motion.aside
+              className="dashboard__sidebar"
+              custom={0}
+              initial="hidden"
+              animate="visible"
+              variants={sectionVariants}
+            >
+              <UploadDataset
+                setDataset={handleSetDataset}
+                setImageUrl={setImageUrl}
+                setUploadMeta={setUploadMeta}
+                setPreviewRows={setPreviewRows}
+              />
+
+              <UploadMetaPanel
+                dataset={dataset}
+                uploadMeta={uploadMeta}
+              />
+            </motion.aside>
+
+            {/* VISUALIZATION PREVIEW */}
+            <motion.div
+              ref={vizCanvasRef}
+              id="visualization-area"
+              className="dashboard__viz"
+              custom={1}
+              initial="hidden"
+              animate="visible"
+              variants={sectionVariants}
+              aria-live="polite"
+            >
+              <PlotViewer
+                imageUrl={imageUrl}
+                loading={plotLoading}
+                chartMeta={chartMeta}
+              />
+            </motion.div>
+
+          </div>
+        </section>
 
         {/* =========================
-            DATASET WORKSPACE
+            EVERYTHING BELOW REQUIRES DATASET
         ========================= */}
 
         {dataset && (
@@ -221,113 +230,169 @@ function Dashboard() {
           >
 
             {/* =========================
-                DATASET SUMMARY
+                02 — UNDERSTAND
             ========================= */}
 
-            <DatasetSummary
-              dataset={dataset}
-              analysis={analysis}
-              loading={analysisLoading}
-            />
+            <section className="product-section">
 
-            {/* =========================
-                AI INSIGHTS
-            ========================= */}
+              <div className="product-section__header">
+                <div>
+                  <span className="product-section__eyebrow">
+                    02 · UNDERSTAND
+                  </span>
 
-            <AIInsights
-              dataset={dataset}
-            />
+                  <h2 className="product-section__title">
+                    Understand your dataset
+                  </h2>
 
-            {/* =========================
-                NL VISUALIZATION
-            ========================= */}
-            <NLVisualization
-            dataset={dataset}
-            setImageUrl={setImageUrl}
-            setChartMeta={setChartMeta}
-            setPlotLoading={setPlotLoading}
-            scrollToVisualization={scrollToVisualization}
-            setXCol={setXCol}
-            setYCol={setYCol}
-            setChartType={setChartType}
-          />
+                  <p className="product-section__description">
+                    Get a quick overview of the structure, quality,
+                    patterns, and contents of your data.
+                  </p>
+                </div>
+              </div>
 
-            {/* =========================
-                CHART TYPE
-            ========================= */}
+              <div className="product-section__content">
 
-            <ChartGallery
-              chartType={chartType}
-              setChartType={setChartType}
-              setYCol={setYCol}
-            />
-
-            {/* =========================
-                CHART CONFIGURATION
-            ========================= */}
-
-            <ChartBuilder
-              dataset={dataset}
-              setImageUrl={setImageUrl}
-              setChartMeta={setChartMeta}
-              setPlotLoading={setPlotLoading}
-              scrollToVisualization={scrollToVisualization}
-              xCol={xCol}
-              yCol={yCol}
-              chartType={chartType}
-              setXCol={setXCol}
-              setYCol={setYCol}
-            />
-
-            {/* =========================
-                GENERATED CHART ACTIONS
-            ========================= */}
-
-            {imageUrl && (
-              <div className="dashboard__chart-meta">
-
-                <ChartInfoPanel
-                  chartMeta={chartMeta}
+                <DatasetSummary
+                  dataset={dataset}
+                  analysis={analysis}
+                  loading={analysisLoading}
                 />
 
-                <DownloadActions
-                  imageUrl={imageUrl}
+                <AIInsights
+                  dataset={dataset}
+                />
+
+                <DatasetPreview
+                  previewRows={previewRows}
+                  columns={dataset.columns}
                 />
 
               </div>
-            )}
+
+            </section>
 
             {/* =========================
-                DATASET PREVIEW
+                03 — VISUALIZE
             ========================= */}
 
-            <DatasetPreview
-              previewRows={previewRows}
-              columns={dataset.columns}
-            />
+            <section className="product-section">
+
+              <div className="product-section__header">
+                <div>
+                  <span className="product-section__eyebrow">
+                    03 · VISUALIZE
+                  </span>
+
+                  <h2 className="product-section__title">
+                    Turn your data into a visualization
+                  </h2>
+
+                  <p className="product-section__description">
+                    Use AI to describe what you want, or configure
+                    the chart manually.
+                  </p>
+                </div>
+              </div>
+
+              <div className="product-section__content">
+
+                {/* NATURAL LANGUAGE AI */}
+                <NLVisualization
+                  dataset={dataset}
+                  setImageUrl={setImageUrl}
+                  setChartMeta={setChartMeta}
+                  setPlotLoading={setPlotLoading}
+                  scrollToVisualization={scrollToVisualization}
+                  setXCol={setXCol}
+                  setYCol={setYCol}
+                  setChartType={setChartType}
+                />
+
+                {/* MANUAL CHART TYPE */}
+                <ChartGallery
+                  chartType={chartType}
+                  setChartType={setChartType}
+                  setYCol={setYCol}
+                />
+
+                {/* MANUAL CONFIGURATION */}
+                <ChartBuilder
+                  dataset={dataset}
+                  setImageUrl={setImageUrl}
+                  setChartMeta={setChartMeta}
+                  setPlotLoading={setPlotLoading}
+                  scrollToVisualization={scrollToVisualization}
+                  xCol={xCol}
+                  yCol={yCol}
+                  chartType={chartType}
+                  setXCol={setXCol}
+                  setYCol={setYCol}
+                />
+
+                {/* GENERATED CHART INFORMATION */}
+                {imageUrl && (
+                  <div className="dashboard__chart-meta">
+
+                    <ChartInfoPanel
+                      chartMeta={chartMeta}
+                    />
+
+                    <DownloadActions
+                      imageUrl={imageUrl}
+                    />
+
+                  </div>
+                )}
+
+              </div>
+
+            </section>
 
             {/* =========================
-                COLUMN INFORMATION
+                04 — DISCOVER
             ========================= */}
 
-            <DatasetInfo
-              dataset={dataset}
-            />
+            <section className="product-section">
 
-            {/* =========================
-                AI CHART RECOMMENDATIONS
-            ========================= */}
+              <div className="product-section__header">
+                <div>
+                  <span className="product-section__eyebrow">
+                    04 · DISCOVER
+                  </span>
 
-            <RecommendationPanel
-              dataset={dataset}
-              setImageUrl={setImageUrl}
-              setChartMeta={setChartMeta}
-              setPlotLoading={setPlotLoading}
-              scrollToVisualization={scrollToVisualization}
-              setXCol={setXCol}
-              setYCol={setYCol}
-              setChartType={setChartType}
-            />
+                  <h2 className="product-section__title">
+                    Discover more from your data
+                  </h2>
+
+                  <p className="product-section__description">
+                    Explore automatically suggested visualizations
+                    and inspect the detected column schema.
+                  </p>
+                </div>
+              </div>
+
+              <div className="product-section__content">
+
+                <RecommendationPanel
+                  dataset={dataset}
+                  setImageUrl={setImageUrl}
+                  setChartMeta={setChartMeta}
+                  setPlotLoading={setPlotLoading}
+                  scrollToVisualization={scrollToVisualization}
+                  setXCol={setXCol}
+                  setYCol={setYCol}
+                  setChartType={setChartType}
+                />
+
+                <DatasetInfo
+                  dataset={dataset}
+                />
+
+              </div>
+
+            </section>
 
           </motion.div>
         )}
