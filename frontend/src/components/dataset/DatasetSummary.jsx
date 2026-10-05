@@ -17,15 +17,15 @@ function DatasetSummary({ dataset, analysis, loading }) {
 
   return (
     <section className="dataset-summary">
-      <h2 className="section-heading">Dataset Summary</h2>
+      <h3 className="section-heading">Dataset at a glance</h3>
       <div className="dataset-summary__grid">
         <StatCard label="Rows" value={dataset.rows} loading={false} delay={0} />
         <StatCard label="Columns" value={dataset.columns.length} loading={false} delay={0.05} />
         <StatCard label="Numeric" value={numericCount} loading={loading && !analysis} delay={0.1} />
         <StatCard label="Categorical" value={categoricalCount} loading={loading && !analysis} delay={0.15} />
         <StatCard
-          label="Missing"
-          value={missingValues}
+          label="Missing values"
+          value={missingValues != null ? `${missingValues.toLocaleString()} cells` : null}
           loading={loading && missingValues == null}
           delay={0.2}
         />

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import GlassCard from "../common/GlassCard";
 import "./UploadDataset.css";
 
 function UploadMetaPanel({ dataset, uploadMeta }) {
@@ -17,40 +16,33 @@ function UploadMetaPanel({ dataset, uploadMeta }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      className="dataset-status-pill"
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.3 }}
     >
-      <GlassCard className="upload-meta-card" hover={false}>
-        <div className="upload-meta__filename">{fileName}</div>
-        <div className="upload-meta__stats">
-          <span className="meta-badge">
-            <strong>{dataset.rows?.toLocaleString()}</strong> Rows
-          </span>
-          <span className="meta-badge">
-            <strong>{dataset.columns?.length}</strong> Columns
-          </span>
-          {fileSize && (
-            <span className="meta-badge">
-              <strong>{formatFileSize(fileSize)}</strong>
-            </span>
-          )}
+      <div className="dataset-status-pill__info">
+        <div className="dataset-status-pill__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg>
         </div>
+        <div className="dataset-status-pill__details">
+          <span className="dataset-status-pill__name">{fileName}</span>
+          <span className="dataset-status-pill__meta">
+            {fileSize && <span>{formatFileSize(fileSize)} · </span>}
+            <span className="dataset-status-pill__id">ID: {dataset.dataset_id?.slice(0, 8)}</span>
+          </span>
+        </div>
+      </div>
 
-        <div className="upload-meta">
-          <div className="upload-meta__row">
-            <span className="upload-meta__label">Dataset ID</span>
-            <span className="upload-meta__value">{dataset.dataset_id}</span>
-          </div>
-          <div className="upload-meta__row">
-            <span className="upload-meta__label">Status</span>
-            <span className="status-badge status-badge--success">
-              <span className="status-dot" />
-              Ready
-            </span>
-          </div>
-        </div>
-      </GlassCard>
+      <div className="status-badge status-badge--success">
+        <span className="status-dot" />
+        Ready
+      </div>
     </motion.div>
   );
 }

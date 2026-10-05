@@ -1,74 +1,72 @@
-.dataset-preview__card {
-  padding: 0;
-  overflow: hidden;
+.dataset-preview {
+  margin-top: 16px;
+  width: 100%;
 }
 
-.dataset-preview__card .glass-card__subtitle {
-  padding: 20px 24px 0;
+.dataset-preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
-.dataset-preview__scroll {
+.dataset-preview__subtitle {
+  margin: 4px 0 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.dataset-preview__table-wrapper {
   overflow: auto;
-  max-height: 420px;
-  border-top: 1px solid var(--glass-border);
+  max-height: 400px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
 }
 
-.data-table {
+.dataset-preview__table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8125rem;
   white-space: nowrap;
+  text-align: left;
 }
 
-.data-table thead {
+.dataset-preview__table thead {
   position: sticky;
   top: 0;
   z-index: 2;
 }
 
-.data-table th {
-  padding: 12px 16px;
-  text-align: left;
+.dataset-preview__table th {
+  padding: 10px 16px;
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--text-secondary);
-  background: rgba(15, 23, 42, 0.95);
+  color: var(--text-muted);
+  background: var(--bg-elevated);
   border-bottom: 1px solid var(--glass-border);
-  backdrop-filter: blur(8px);
 }
 
-.data-table td {
-  padding: 10px 16px;
+.dataset-preview__table td {
+  padding: 9px 16px;
   color: var(--text-primary);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--border-subtle);
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  max-width: 200px;
+  max-width: 240px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.data-table tbody tr:nth-child(even) {
-  background: rgba(255, 255, 255, 0.02);
+.dataset-preview__table tbody tr:hover {
+  background: var(--bg-subtle-hover);
 }
 
-.data-table tbody tr:hover {
-  background: rgba(16, 185, 129, 0.06);
-}
-
-.data-table tbody tr:last-child td {
+.dataset-preview__table tbody tr:last-child td {
   border-bottom: none;
-}
-
-.dataset-preview__scroll::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
-}
-
-.dataset-preview__scroll::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 10px;
 }

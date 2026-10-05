@@ -12,14 +12,12 @@ function DatasetPreview({ previewRows, columns }) {
     <section className="dataset-preview">
       <div className="dataset-preview__header">
         <div>
-          <span className="section-label">Dataset</span>
-
-          <h2 className="section-heading">
+          <h3 className="section-heading">
             Dataset Preview
-          </h2>
+          </h3>
 
           <p className="dataset-preview__subtitle">
-            View the first 10 rows of your uploaded dataset.
+            First 10 rows of your uploaded dataset.
           </p>
         </div>
 
@@ -28,9 +26,23 @@ function DatasetPreview({ previewRows, columns }) {
           className="btn btn--secondary"
           onClick={() => setShowPreview((prev) => !prev)}
         >
-          {showPreview
-            ? "Hide Dataset Preview"
-            : "View Dataset Preview"}
+          {showPreview ? "Hide Dataset Preview" : "View Dataset Preview"}
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              transform: showPreview ? "rotate(180deg)" : "rotate(0deg)",
+              transition: "transform 0.2s ease",
+            }}
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </button>
       </div>
 
