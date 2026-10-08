@@ -1,94 +1,75 @@
 .nl-visualization-section {
-  margin-top: 2rem;
+  width: 100%;
+}
+
+.nl-section__header {
+  margin-bottom: 14px;
+}
+
+.nl-card {
+  padding: 24px;
 }
 
 .nl-input-wrapper {
-  margin-top: 1.25rem;
+  margin-top: 0;
 }
 
 .nl-input {
   width: 100%;
-  min-height: 110px;
+  min-height: 90px;
   resize: vertical;
-
-  padding: 1rem 1.1rem;
-
-  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
-  border-radius: 14px;
-
-  background: var(
-    --input-background,
-    rgba(255, 255, 255, 0.04)
-  );
-
-  color: inherit;
-
-  font-family: inherit;
-  font-size: 0.95rem;
+  padding: 12px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.9375rem;
   line-height: 1.5;
-
   outline: none;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .nl-input:focus {
-  border-color: rgba(99, 102, 241, 0.7);
-
-  box-shadow:
-    0 0 0 3px rgba(99, 102, 241, 0.12);
-}
-
-.nl-input::placeholder {
-  opacity: 0.55;
-}
-
-.nl-input:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  border-color: var(--glass-border-focus);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .nl-examples {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-
-  margin-top: 1rem;
+  gap: 8px;
+  margin-top: 14px;
 }
 
 .nl-examples__label {
-  font-size: 0.8rem;
-  opacity: 0.55;
-  margin-right: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 2px;
 }
 
 .nl-example {
-  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
-  border-radius: 999px;
-
-  padding: 0.45rem 0.75rem;
-
-  background: transparent;
-  color: inherit;
-
-  font-family: inherit;
-  font-size: 0.78rem;
-
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 0.8125rem;
+  font-weight: 500;
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .nl-example:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(99, 102, 241, 0.5);
-  transform: translateY(-1px);
+  background: var(--bg-subtle-hover);
+  border-color: var(--glass-border-hover);
+  color: var(--text-primary);
 }
 
 .nl-example:disabled {
@@ -97,20 +78,15 @@
 }
 
 .nl-error {
-  margin-top: 1rem;
-
-  padding: 0.8rem 1rem;
-
-  border-radius: 10px;
-
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-
-  color: #ef4444;
-
-  font-size: 0.85rem;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-subtle);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  color: var(--danger);
+  font-size: 0.84375rem;
 }
 
 .nl-generate-btn {
-  margin-top: 1.25rem;
+  margin-top: 18px;
 }

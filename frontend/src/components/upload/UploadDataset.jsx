@@ -102,8 +102,7 @@ function UploadDataset({ setDataset, setImageUrl, setUploadMeta, setPreviewRows 
 
   return (
     <GlassCard className="upload-card" hover={false}>
-      <span className="section-label">Step 1</span>
-      <h2 className="glass-card__title">Upload Dataset</h2>
+      <h3 className="glass-card__title">Upload Dataset</h3>
       <p className="glass-card__subtitle">
         Drop a CSV or Excel file to begin exploring your data.
       </p>

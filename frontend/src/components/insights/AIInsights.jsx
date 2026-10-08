@@ -54,11 +54,9 @@ function AIInsights({ dataset }) {
     <section className="ai-insights-section">
       <div className="ai-insights-header">
         <div>
-          <span className="section-label">AI Assist</span>
-
-          <h2 className="section-heading">
+          <h3 className="section-heading">
             AI Data Insights
-          </h2>
+          </h3>
 
           <p className="ai-insights-subtitle">
             Automatically generated observations from your dataset.

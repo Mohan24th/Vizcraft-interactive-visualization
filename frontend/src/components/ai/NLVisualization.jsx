@@ -190,29 +190,24 @@ function NLVisualization({
   };
 
   const exampleQueries = [
-    "Show the value by year as a line chart",
-    "Compare value across industries",
-    "Create a histogram of value",
-    "Show a scatter plot of year and value",
+    "Show value by year as a line chart",
+    "Compare industries",
+    "Create a histogram",
+    "Show year vs value",
   ];
 
   return (
     <section className="nl-visualization-section">
-      <span className="section-label">
-        AI Assist
-      </span>
-
-      <h2 className="section-heading">
-        Ask VizCraft
-      </h2>
-
-      <GlassCard hover={false}>
+      <div className="nl-section__header">
+        <h3 className="section-heading">
+          Ask VizCraft
+        </h3>
         <p className="glass-card__subtitle">
-          Describe the visualization you want in plain
-          English. VizCraft will choose the chart and
-          columns for you.
+          Describe the visualization you want in plain English. VizCraft will automatically configure the chart.
         </p>
+      </div>
 
+      <GlassCard hover={false} className="nl-card">
         <div className="nl-input-wrapper">
           <textarea
             className="nl-input"
@@ -221,8 +216,8 @@ function NLVisualization({
               setQuery(e.target.value);
               setError("");
             }}
-            placeholder="Example: Show the value by year as a line chart"
-            rows={4}
+            placeholder="Show value by year as a line chart..."
+            rows={3}
             disabled={loading}
           />
         </div>
@@ -266,7 +261,7 @@ function NLVisualization({
           {loading ? (
             <span className="btn-loading">
               <span className="btn-spinner" />
-              Creating visualization...
+              Generating visualization...
             </span>
           ) : (
             "Generate Visualization"
